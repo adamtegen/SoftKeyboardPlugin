@@ -26,9 +26,9 @@ public class SoftKeyboard extends CordovaPlugin {
 
     public void showKeyBoard() {
         InputMethodManager mgr = (InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(webView, InputMethodManager.SHOW_IMPLICIT);
+        mgr.showSoftInput(webView.getView(), InputMethodManager.SHOW_IMPLICIT);
 
-        ((InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(webView, 0);
+        ((InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(webView.getView(), 0);
     }
 
     public void hideKeyBoard() {
