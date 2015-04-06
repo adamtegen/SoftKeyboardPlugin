@@ -25,7 +25,7 @@ public class SoftKeyboard extends CordovaPlugin {
     }
 
     private View getCordovaView() {
-    	cordova.getActivity().getWindow().getDecorView();
+    	return cordova.getActivity().getWindow().getDecorView();
     }
 
     public void showKeyBoard() {
