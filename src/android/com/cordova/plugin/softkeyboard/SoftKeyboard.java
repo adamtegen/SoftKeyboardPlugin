@@ -37,16 +37,16 @@ public class SoftKeyboard extends CordovaPlugin {
     }
 
     public boolean isKeyBoardShowing() {
-    	int heightDiff = webView.getRootView().getHeight() - webView.getHeight();
+    	int heightDiff = webView.getView().getRootView().getHeight() - webView.getView().getHeight();
     	return (100 < heightDiff); // if more than 100 pixels, its probably a keyboard...
     }
 
     public int getWebViewWidth() {
-        return webView.getWidth();
+        return webView.getView().getWidth();
     }
 
     public int getWebViewHeight() {
-        return webView.getHeight();
+        return webView.getView().getHeight();
     }
 
     public int getDisplayHeight() {
@@ -61,8 +61,8 @@ public class SoftKeyboard extends CordovaPlugin {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 boolean up, down;
-                up = webView.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, posx, posy, 0));
-                down = webView.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, posx, posy, 0));
+                up = webView.getView().dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, posx, posy, 0));
+                down = webView.getView().dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, posx, posy, 0));
                 if (!down || !up) {
                     callbackContext.error("Failed sending key up+down event for coords " + posx + ", " + posy);
                 } else {
