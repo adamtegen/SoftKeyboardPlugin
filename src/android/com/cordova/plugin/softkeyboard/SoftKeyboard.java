@@ -24,29 +24,33 @@ public class SoftKeyboard extends CordovaPlugin {
     public SoftKeyboard() {
     }
 
+    private View getCordovaView() {
+    	cordova.getActivity().getWindow().getDecorView();
+    }
+
     public void showKeyBoard() {
         InputMethodManager mgr = (InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(webView.getView(), InputMethodManager.SHOW_IMPLICIT);
+        mgr.showSoftInput(getCordovaView(), InputMethodManager.SHOW_IMPLICIT);
 
-        ((InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(webView.getView(), 0);
+        ((InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(getCordovaView(), 0);
     }
 
     public void hideKeyBoard() {
         InputMethodManager mgr = (InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mgr.hideSoftInputFromWindow(webView.getView().getWindowToken(), 0);
+        mgr.hideSoftInputFromWindow(getCordovaView().getWindowToken(), 0);
     }
 
     public boolean isKeyBoardShowing() {
-    	int heightDiff = webView.getView().getRootView().getHeight() - webView.getView().getHeight();
+    	int heightDiff = getCordovaView().getRootView().getHeight() - getCordovaView().getHeight();
     	return (100 < heightDiff); // if more than 100 pixels, its probably a keyboard...
     }
 
     public int getWebViewWidth() {
-        return webView.getView().getWidth();
+        return getCordovaView().getWidth();
     }
 
     public int getWebViewHeight() {
-        return webView.getView().getHeight();
+        return getCordovaView().getHeight();
     }
 
     public int getDisplayHeight() {
@@ -61,8 +65,8 @@ public class SoftKeyboard extends CordovaPlugin {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 boolean up, down;
-                up = webView.getView().dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, posx, posy, 0));
-                down = webView.getView().dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, posx, posy, 0));
+                up = getCordovaView().dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, posx, posy, 0));
+                down = getCordovaView().dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, posx, posy, 0));
                 if (!down || !up) {
                     callbackContext.error("Failed sending key up+down event for coords " + posx + ", " + posy);
                 } else {
