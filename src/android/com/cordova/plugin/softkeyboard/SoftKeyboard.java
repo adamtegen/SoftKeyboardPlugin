@@ -29,7 +29,7 @@ public class SoftKeyboard extends CordovaPlugin {
             public void run()
             {   
                 webView.getView().setFocusableInTouchMode(true);
-                webView.getView().requestFocusInTouchMode();
+                webView.getView().requestFocusFromTouch();
                 //webView.getView().requestFocus();
                 InputMethodManager mgr = (InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 mgr.showSoftInput(webView.getView(), InputMethodManager.SHOW_IMPLICIT);
